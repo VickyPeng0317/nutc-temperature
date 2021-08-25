@@ -5,10 +5,14 @@ import { AppComponent } from './app.component';
 import { OnsenModule } from 'ngx-onsenui';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DeviceInfoPageComponent } from './feature/page/device-info-page/device-info-page.component';
+import { QrCodePageComponent } from './feature/page/qr-code-page/qr-code-page.component';
+import { UploadTemperaturePageComponent } from './feature/page/upload-temperature-page/upload-temperature-page.component';
 @NgModule({
   declarations: [
     AppComponent,
-    DeviceInfoPageComponent
+    DeviceInfoPageComponent,
+    QrCodePageComponent,
+    UploadTemperaturePageComponent
   ],
   imports: [
     BrowserModule,

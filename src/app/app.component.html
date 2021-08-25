@@ -13,31 +13,13 @@
 </div>
 <!-- 選單 -->
 <div class="tabbar">
-  <label class="tabbar__item">
-    <input type="radio" name="tabbar-a">
+  <label *ngFor="let menuItem of footerMenu" (click)="toPage(menuItem.path)" class="tabbar__item">
+    <input type="radio" name="tabbar-a" [checked]="menuItem.checked">
     <button class="tabbar__button">
       <i class="tabbar__icon">
-        <ion-icon name="qr-code-outline"></ion-icon>
+        <ion-icon [name]="menuItem.icon"></ion-icon>
       </i>
-      <div class="tabbar__label">掃描裝置</div>
-    </button>
-  </label>
-  <label class="tabbar__item">
-    <input type="radio" name="tabbar-a" checked="checked">
-    <button class="tabbar__button">
-      <i class="tabbar__icon">
-        <ion-icon name="home"></ion-icon>
-      </i>
-      <div class="tabbar__label">首頁</div>
-    </button>
-  </label>
-  <label class="tabbar__item">
-    <input type="radio" name="tabbar-a">
-    <button class="tabbar__button">
-      <i class="tabbar__icon">
-        <ion-icon name="thermometer-outline"></ion-icon>
-      </i>
-      <div class="tabbar__label">體溫上傳</div>
+      <div class="tabbar__label">{{ menuItem.title }}</div>
     </button>
   </label>
 </div>
