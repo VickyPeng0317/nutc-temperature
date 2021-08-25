@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./qr-code-page.component.scss']
 })
 export class QrCodePageComponent implements OnInit {
-
+  qrResultString: string = '';
   constructor() { }
 
   ngOnInit(): void {
   }
+  
+  clearResult(): void {
+    this.qrResultString = '';
+  }
 
+  onCodeResult(resultString: string) {
+    this.qrResultString = resultString;
+  }
 }

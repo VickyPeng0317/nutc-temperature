@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DeviceInfoPageComponent } from './feature/page/device-info-page/device-info-page.component';
 import { QrCodePageComponent } from './feature/page/qr-code-page/qr-code-page.component';
 import { UploadTemperaturePageComponent } from './feature/page/upload-temperature-page/upload-temperature-page.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,8 @@ import { UploadTemperaturePageComponent } from './feature/page/upload-temperatur
     BrowserModule,
     AppRoutingModule,
     OnsenModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ZXingScannerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

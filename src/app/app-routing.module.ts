@@ -16,7 +16,12 @@ const routes: Routes = [
   {
     path: 'upload-tprt',
     component: UploadTemperaturePageComponent
-  }
+  },
+  {
+    path: '',
+    redirectTo: "device-info",
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
