@@ -28,6 +28,7 @@
     "animate.css": "^4.1.1",
     "ionicons": "^5.5.3",
     "ngx-onsenui": "^7.0.0",
+    "ngx-webcam": "^0.3.2",
     "onsenui": "^2.11.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
