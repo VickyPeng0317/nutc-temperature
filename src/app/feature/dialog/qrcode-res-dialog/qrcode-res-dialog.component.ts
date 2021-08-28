@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class QrcodeResDialogComponent implements OnInit {
   @Input() isSuccess = true;
   @Input() msg = '';
+  @Input() title = '';
   constructor() { }
 
   ngOnInit(): void {
