@@ -1,1 +1,27 @@
-<p>upload-temperature-page works!</p>
+<div fxLayoutAlign="center" style="padding: 10px;" >
+    <webcam *ngIf="!webcamImage" [width]="300" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" ></webcam>
+    <img *ngIf="webcamImage" width="300" [src]="webcamImage.imageAsDataUrl"/>
+</div>
+<div fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
+    <ng-container>
+        <button *ngIf="!webcamImage" class="button--large--cta" (click)="triggerSnapshot()">
+            <div fxLayoutAlign="center center" fxLayoutGap="5px">
+                <ion-icon name="camera"></ion-icon>
+                <span>拍攝照片</span>
+            </div>
+        </button>
+        <button *ngIf="webcamImage" class="button--large--cta" [disabled]="isUploading" (click)="resetSnapshot()">
+            <div fxLayoutAlign="center center" fxLayoutGap="5px">
+                <ion-icon name="camera-reverse"></ion-icon>
+                <span>重新拍照</span>
+            </div>
+        </button>
+    </ng-container>
+    <button class="button--large--cta" style="background: #0076FF;" [disabled]="!webcamImage || isUploading" (click)="uploadImg()">
+        <div fxLayoutAlign="center center" fxLayoutGap="5px">
+            <ion-icon name="thermometer-outline"></ion-icon>
+            <span>{{ isUploading ? '辨識中...' : '體溫辨識'}}</span>
+        </div>
+    </button>
+</div>
+<app-qrcode-res-dialog *ngIf="dialogSetting.isShow" [title]="'辨識結果'" [isSuccess]="dialogSetting.isSuccess" [msg]="dialogSetting.msg"></app-qrcode-res-dialog>

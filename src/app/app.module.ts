@@ -9,6 +9,7 @@ import { QrCodePageComponent } from './feature/page/qr-code-page/qr-code-page.co
 import { UploadTemperaturePageComponent } from './feature/page/upload-temperature-page/upload-temperature-page.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QrcodeResDialogComponent } from './feature/dialog/qrcode-res-dialog/qrcode-res-dialog.component';
+import { WebcamModule } from 'ngx-webcam';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { QrcodeResDialogComponent } from './feature/dialog/qrcode-res-dialog/qrc
     AppRoutingModule,
     OnsenModule,
     FlexLayoutModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    WebcamModule
   ],
   providers: [],
   bootstrap: [AppComponent],

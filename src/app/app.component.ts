@@ -13,20 +13,17 @@ export class AppComponent implements OnInit {
     {
       title: '掃描設備',
       icon: 'qr-code-outline',
-      path: '/qrcode',
-      checked: ''
+      path: '/qrcode'
     },
     {
       title: '首頁',
       icon: 'home',
-      path: '/device-info',
-      checked: ''
+      path: '/device-info'
     },
     {
-      title: '體溫上傳',
+      title: '上傳體溫',
       icon: 'thermometer-outline',
-      path: '/upload-tprt',
-      checked: ''
+      path: '/upload-tprt'
     }
   ];
   currentPath = '';
