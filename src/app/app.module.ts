@@ -8,12 +8,14 @@ import { DeviceInfoPageComponent } from './feature/page/device-info-page/device-
 import { QrCodePageComponent } from './feature/page/qr-code-page/qr-code-page.component';
 import { UploadTemperaturePageComponent } from './feature/page/upload-temperature-page/upload-temperature-page.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { QrcodeResDialogComponent } from './feature/dialog/qrcode-res-dialog/qrcode-res-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
     DeviceInfoPageComponent,
     QrCodePageComponent,
-    UploadTemperaturePageComponent
+    UploadTemperaturePageComponent,
+    QrcodeResDialogComponent
   ],
   imports: [
     BrowserModule,
