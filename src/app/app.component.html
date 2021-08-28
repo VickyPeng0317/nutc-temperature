@@ -8,13 +8,13 @@
   </div>
 </div>
 <!-- 路由渲染區 -->
-<div class="feature" fxLayoutAlign="center">
+<div class="feature" >
   <router-outlet></router-outlet>
 </div>
 <!-- 選單 -->
 <div class="tabbar">
   <label *ngFor="let menuItem of footerMenu" (click)="toPage(menuItem.path)" class="tabbar__item">
-    <input type="radio" name="tabbar-a" [checked]="menuItem.checked">
+    <input type="radio" name="tabbar-a" [checked]="currentPath === menuItem.path ? 'checked' : ''">
     <button class="tabbar__button">
       <i class="tabbar__icon">
         <ion-icon [name]="menuItem.icon"></ion-icon>

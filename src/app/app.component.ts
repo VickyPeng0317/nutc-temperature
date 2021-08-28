@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { timer } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { timer } from 'rxjs';
 export class AppComponent implements OnInit {
   footerMenu = [
     {
-      title: '掃描裝置',
+      title: '掃描設備',
       icon: 'qr-code-outline',
       path: '/qrcode',
       checked: ''
@@ -28,20 +29,19 @@ export class AppComponent implements OnInit {
       checked: ''
     }
   ];
+  currentPath = '';
   constructor(
     private router: Router
   ) {}
   ngOnInit() {
-    this.setMenuChecked();
+    this.listenUrlChange();
   }
-  setMenuChecked() {
-    timer(500).subscribe(() => 
-      this.footerMenu.forEach(item => {
-        if (item.path === this.router.url) {
-          item.checked = 'ckecked';
-        }
-      })
-    );
+  listenUrlChange() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)
+    ).subscribe((event: any) => {
+      this.currentPath = event.url;
+    });
   }
   toPage(path: string){
     this.router.navigate([path]);
