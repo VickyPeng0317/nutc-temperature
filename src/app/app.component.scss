@@ -7,4 +7,6 @@
 }
 .feature {
     padding: 10px;
+    overflow: auto;
+    height: calc(100% - 105px);
 }
