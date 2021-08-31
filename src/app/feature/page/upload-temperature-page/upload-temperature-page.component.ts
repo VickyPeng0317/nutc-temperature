@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Observable, timer } from 'rxjs';
 import { WebcamImage } from 'ngx-webcam';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
+
 @Component({
   selector: 'app-upload-temperature-page',
   templateUrl: './upload-temperature-page.component.html',
@@ -17,7 +19,18 @@ export class UploadTemperaturePageComponent implements OnInit {
   trigger: Subject<void> = new Subject<void>();
   isUploading = false;
   testFlag = true;
+  deviceorientationObs$ = new Observable();
   ngOnInit(): void {
+    this.listenDeviceorientation();
+  }
+
+  listenDeviceorientation() {
+    this.deviceorientationObs$ = fromEvent(window, 'deviceorientation').pipe(
+      map((event: any) => {
+        const { alpha, beta, gamma } = event;
+        return { alpha, beta, gamma };
+      })
+    );
   }
 
   resetSnapshot() {
