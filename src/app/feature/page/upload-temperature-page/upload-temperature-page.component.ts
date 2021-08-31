@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, Observable, timer } from 'rxjs';
+import { Subject, Observable, timer, interval } from 'rxjs';
 import { WebcamImage } from 'ngx-webcam';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, takeUntil } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 
 @Component({
@@ -20,8 +20,20 @@ export class UploadTemperaturePageComponent implements OnInit {
   isUploading = false;
   testFlag = true;
   deviceorientationObs$ = new Observable();
+  buffer: any[] = [];
   ngOnInit(): void {
     this.listenDeviceorientation();
+    this.autoSnapshot();
+  }
+
+  autoSnapshot() {
+    const tryCount = 20;
+    const delay = 1000;
+    interval(delay).pipe(
+      takeUntil(timer(tryCount * delay)),
+    ).subscribe(() => {
+      this.triggerSnapshot();
+    });
   }
 
   listenDeviceorientation() {
@@ -43,6 +55,7 @@ export class UploadTemperaturePageComponent implements OnInit {
 
   handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
+    this.buffer.push(webcamImage.imageAsBase64);
   }
 
   get triggerObservable(): Observable<void> {
