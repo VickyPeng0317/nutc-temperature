@@ -38,8 +38,8 @@ export class UploadTemperaturePageComponent implements OnInit, OnDestroy {
   }
 
   autoSnapshot() {
-    const tryCount = 6;
-    const delay = 1000;
+    const time = 6000;
+    const delay = 300;
     interval(delay).pipe(
       finalize(() => {
         if (this.isSuccess) {
@@ -49,7 +49,7 @@ export class UploadTemperaturePageComponent implements OnInit, OnDestroy {
           tap(() => this.router.navigate(['device-info']))
         ).subscribe()
       }),
-      takeUntil(timer(tryCount * delay))
+      takeUntil(timer(time))
     ).subscribe(() => {
       this.triggerSnapshot();
     });
