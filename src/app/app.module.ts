@@ -10,6 +10,7 @@ import { UploadTemperaturePageComponent } from './feature/page/upload-temperatur
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QrcodeResDialogComponent } from './feature/dialog/qrcode-res-dialog/qrcode-res-dialog.component';
 import { WebcamModule } from 'ngx-webcam';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { WebcamModule } from 'ngx-webcam';
     OnsenModule,
     FlexLayoutModule,
     ZXingScannerModule,
-    WebcamModule
+    WebcamModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
