@@ -25,6 +25,7 @@ export class UploadTemperaturePageComponent implements OnInit, OnDestroy {
   resList: any[] = [];
   endSubject = new Subject();
   isSuccess = false;
+  isShowRefreshBtn = false;
   constructor(
     private http: HttpClient,
     private router: Router
@@ -45,8 +46,8 @@ export class UploadTemperaturePageComponent implements OnInit, OnDestroy {
         if (this.isSuccess) {
           return;
         }
-        this.openResDialog(false, '辨識失敗').pipe(
-          tap(() => this.router.navigate(['device-info']))
+        this.openResDialog(false, '辨識失敗 請重新整理').pipe(
+          tap(() => this.isShowRefreshBtn = true)
         ).subscribe()
       }),
       takeUntil(timer(time))
@@ -123,5 +124,9 @@ export class UploadTemperaturePageComponent implements OnInit, OnDestroy {
         this.dialogSetting.isShow = false
       })
     );
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 }
