@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:ngrok": "ng serve --disable-host-check",
-    "start:ssl": "ng serve --ssl true --ssl-key ./node_modules/browser-sync/certs/server.key --ssl-cert ./node_modules/browser-sync/certs/server.crt --port 3006",
+    "start:ssl": "ng serve --ssl true --ssl-key ./node_modules/browser-sync/certs/server.key --ssl-cert ./node_modules/browser-sync/certs/server.crt --host 10.25.1.116",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
