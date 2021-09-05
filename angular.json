@@ -130,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "nutc-temperature"
+  "defaultProject": "nutc-temperature",
+  "cli": {
+    "analytics": false
+  }
 }
