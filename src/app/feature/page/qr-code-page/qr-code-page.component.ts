@@ -14,15 +14,21 @@ export class QrCodePageComponent implements OnInit, AfterViewInit {
     isSuccess: true,
     msg: '成功'
   };
+  get canvasWidth() {
+    return document.getElementsByTagName('video')[0].offsetWidth
+  }
+  get canvasHeidht() {
+    return document.getElementsByTagName('video')[0].offsetHeight
+  }
   constructor(
     private router: Router
   ) { }
   ngAfterViewInit(): void {
-    timer(100).subscribe(() => {
+    timer(2000).subscribe(() => {
       const canvas = <HTMLCanvasElement> document.getElementById('stage');
       const ctx = <CanvasRenderingContext2D> canvas?.getContext('2d');
-      const recWidth = 100;
-      const recHeight = 100;
+      const recWidth = 200;
+      const recHeight = 200;
       const xPos = canvas?.width/2 - (recWidth/2);
       const yPos = canvas?.height/2 - (recHeight/2);
       ctx.globalAlpha= 0.5;

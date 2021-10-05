@@ -1,8 +1,9 @@
 <div #sc id="sc" style="position: relative;">
     <zxing-scanner  (scanSuccess)="onCodeResult($event)"></zxing-scanner>
     <div class="canvas">
-        <canvas id="stage"></canvas>
+        <canvas id="stage" [width]="canvasWidth" [height]="canvasHeidht"></canvas>
     </div>
 </div>
 <div class="msg">請掃描設備 QR Code</div>
+
 <app-qrcode-res-dialog *ngIf="dialogSetting.isShow" [title]="'掃描結果'" [isSuccess]="dialogSetting.isSuccess" [msg]="dialogSetting.msg"></app-qrcode-res-dialog>
