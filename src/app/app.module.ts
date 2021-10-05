@@ -11,13 +11,15 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QrcodeResDialogComponent } from './feature/dialog/qrcode-res-dialog/qrcode-res-dialog.component';
 import { WebcamModule } from 'ngx-webcam';
 import { HttpClientModule } from '@angular/common/http';
+import { TemperatureScanPageComponent } from './feature/page/temperature-scan-page/temperature-scan-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     DeviceInfoPageComponent,
     QrCodePageComponent,
     UploadTemperaturePageComponent,
-    QrcodeResDialogComponent
+    QrcodeResDialogComponent,
+    TemperatureScanPageComponent
   ],
   imports: [
     BrowserModule,
