@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { timer } from 'rxjs';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   templateUrl: './qr-code-page.component.html',
   styleUrls: ['./qr-code-page.component.scss']
 })
-export class QrCodePageComponent implements OnInit {
+export class QrCodePageComponent implements OnInit, AfterViewInit {
 
   dialogSetting = {
     isShow: false,
@@ -17,8 +17,24 @@ export class QrCodePageComponent implements OnInit {
   constructor(
     private router: Router
   ) { }
+  ngAfterViewInit(): void {
+    timer(100).subscribe(() => {
+      const canvas = <HTMLCanvasElement> document.getElementById('stage');
+      const ctx = <CanvasRenderingContext2D> canvas?.getContext('2d');
+      const recWidth = 100;
+      const recHeight = 100;
+      const xPos = canvas?.width/2 - (recWidth/2);
+      const yPos = canvas?.height/2 - (recHeight/2);
+      ctx.globalAlpha= 0.5;
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(0, 0, canvas?.width, canvas?.height);
+      ctx.clearRect(xPos, yPos, recWidth, recHeight);
+    });
+  }
+
 
   ngOnInit(): void {
+
   }
 
 
