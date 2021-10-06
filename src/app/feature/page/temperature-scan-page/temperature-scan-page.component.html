@@ -1,7 +1,7 @@
 <div #pageRef style="overflow: auto; height: 100%;">
     <div [hidden]="temperature !== 0" fxLayoutAlign="center" style="position: relative;" >
         <webcam [width]="canvasWidth" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" ></webcam>
-        <div class="canvas">
+        <div class="canvas" style="width: 90vw">
             <canvas id="stage" [width]="canvasWidth" [height]="canvasHeidht"></canvas>
         </div>
         <!-- <img *ngIf="webcamImage" width="300" [src]="webcamImage.imageAsDataUrl"/> -->
