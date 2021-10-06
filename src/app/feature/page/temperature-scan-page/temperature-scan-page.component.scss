@@ -1,0 +1,35 @@
+.start-scan-btn {
+    background: #0076FF;
+}
+
+.scannibg-btn {
+    background: gray;
+}
+
+.info-title {
+    text-align: center; 
+    border-bottom: 1px solid gainsboro;
+    padding-bottom: 10px; 
+    font-weight: bold;
+}
+
+.info-border {
+    border-right: 1px solid gainsboro
+}
+
+.temperature-danger {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #FF3D71;
+}
+
+.temperature-success {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #00D68F;
+}
+
+.temperature-fail {
+    font-weight: bold;
+    font-size: 2rem;
+}
