@@ -5,6 +5,7 @@ import { tap, map, takeUntil, finalize } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-temperature-scan-page',
   templateUrl: './temperature-scan-page.component.html',
@@ -95,7 +96,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     // of({ temperature: 35.6 }).pipe(
     //   takeUntil(this.endSubject)
     // ).subscribe((res: any) => {
-    this.http.post('https://23b7-163-17-132-191.ap.ngrok.io/post_submit', params).pipe(
+    this.http.post(environment.scanApiPath, params).pipe(
       takeUntil(this.endSubject)
     ).subscribe((res: any) => {
       if (res === '0') {
