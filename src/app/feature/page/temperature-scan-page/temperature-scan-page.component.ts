@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './temperature-scan-page.component.html',
   styleUrls: ['./temperature-scan-page.component.scss']
 })
-export class TemperatureScanPageComponent implements OnInit {
+export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   @ViewChild('pageRef', { read: ElementRef }) pageRef: any;
   dialogSetting = {
     isShow: false,
@@ -34,7 +34,29 @@ export class TemperatureScanPageComponent implements OnInit {
     private router: Router,
     private el: ElementRef
   ) { }
-
+  ngAfterViewInit(): void {
+    timer(2000).subscribe(() => {
+      this.drawMask();
+    });
+  }
+  drawMask() {
+    const canvas = <HTMLCanvasElement> document.getElementById('stage');
+    const ctx = <CanvasRenderingContext2D> canvas?.getContext('2d');
+    const recWidth = 200;
+    const recHeight = 100;
+    const xPos = canvas?.width/2 - (recWidth/2);
+    const yPos = canvas?.height/2 - (recHeight/2);
+    ctx.globalAlpha= 0.6;
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, canvas?.width, canvas?.height-5);
+    ctx.clearRect(xPos, yPos, recWidth, recHeight);
+  }
+  get canvasWidth() {
+    return (document.getElementsByClassName('canvas')[0] as any).offsetWidth
+  }
+  get canvasHeidht() {
+    return (document.getElementsByClassName('canvas')[0] as any).offsetHeight
+  }
   ngOnDestroy(): void {
     this.endSubject.next();
   }
@@ -121,6 +143,9 @@ export class TemperatureScanPageComponent implements OnInit {
   reset() {
     this.isSuccess = false;
     this.temperature = 0;
-    timer(100).subscribe(() => this.pageToTop());
+    timer(100).subscribe(() => {
+      this.pageToTop()
+      this.drawMask();
+    });
   }
 }

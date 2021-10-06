@@ -1,6 +1,9 @@
 <div #pageRef style="overflow: auto; height: 100%;">
-    <div [hidden]="temperature !== 0" fxLayoutAlign="center" style="padding: 10px;" >
-        <webcam [width]="300" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" ></webcam>
+    <div [hidden]="temperature !== 0" fxLayoutAlign="center" style="position: relative;" >
+        <webcam [width]="canvasWidth" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" ></webcam>
+        <div class="canvas">
+            <canvas id="stage" [width]="canvasWidth" [height]="canvasHeidht"></canvas>
+        </div>
         <!-- <img *ngIf="webcamImage" width="300" [src]="webcamImage.imageAsDataUrl"/> -->
     </div>
     <div *ngIf="temperature === 0" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
