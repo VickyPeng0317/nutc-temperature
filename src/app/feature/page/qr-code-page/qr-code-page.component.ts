@@ -45,13 +45,13 @@ export class QrCodePageComponent implements OnInit, AfterViewInit {
 
 
   onCodeResult(resultString: string) {
-    const isDevice = resultString.includes('peng');
+    const isDevice = resultString.includes('設備01');
     if (!isDevice) {
       this.openQRCodeResDialog(false, '非設備 QRCode').subscribe();
       return;
     }
     this.openQRCodeResDialog(true, '掃描成功!').subscribe(() => {
-      this.router.navigate(['device-info']);
+      this.router.navigate(['scan']);
     });
   }
 
