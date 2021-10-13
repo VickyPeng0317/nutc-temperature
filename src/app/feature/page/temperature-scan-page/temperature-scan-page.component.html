@@ -24,7 +24,7 @@
         <div class="msg" style="color: red;">
             *請將相機水平對準設備
         </div>
-        <ng-container>
+        <ng-container *ngIf="false">
             <ng-container *ngIf="!isScanning">
                 <button class="button--large--cta start-scan-btn" (click)="startScan()">
                     <div fxLayoutAlign="center center" fxLayoutGap="5px">

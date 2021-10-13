@@ -62,11 +62,12 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     this.endSubject.next();
   }
   ngOnInit(): void {
+    timer(5000).subscribe(() => this.startScan());
   }
 
   startScan() {
-    const time = 6000;
-    const delay = 300;
+    const time = 10000;
+    const delay = 500;
     this.isScanning = true;
     interval(delay).pipe(
       finalize(() => {
@@ -74,7 +75,9 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
         if (this.isSuccess) {
           return;
         }
-        this.openResDialog(false, '辨識失敗 請重新辨識').subscribe()
+        this.openResDialog(false, '辨識失敗 請對準設備').subscribe(() => {
+          this.startScan();
+        });
       }),
       takeUntil(timer(time)),
       takeUntil(this.endSubject)
@@ -136,7 +139,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     };
     return timer(2000).pipe(
       tap(() => {
-        this.dialogSetting.isShow = false
+        this.dialogSetting.isShow = false;
       })
     );
   }
@@ -145,8 +148,9 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     this.isSuccess = false;
     this.temperature = 0;
     timer(100).subscribe(() => {
-      this.pageToTop()
+      this.pageToTop();
       this.drawMask();
+      timer(2000).subscribe(() => this.startScan());
     });
   }
 }
