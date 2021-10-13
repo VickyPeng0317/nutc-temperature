@@ -43,8 +43,8 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   drawMask() {
     const canvas = <HTMLCanvasElement> document.getElementById('stage');
     const ctx = <CanvasRenderingContext2D> canvas?.getContext('2d');
-    const recWidth = 200;
-    const recHeight = 100;
+    const recWidth = 300;
+    const recHeight = 200;
     const xPos = canvas?.width/2 - (recWidth/2);
     const yPos = canvas?.height/2 - (recHeight/2);
     ctx.globalAlpha= 0.6;
