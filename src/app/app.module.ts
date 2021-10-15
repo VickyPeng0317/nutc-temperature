@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TemperatureScanPageComponent } from './feature/page/temperature-scan-page/temperature-scan-page.component';
 import { LoginPageComponent } from './feature/page/login-page/login-page.component';
 import { LayoutTemplateComponent } from './feature/page/layout-template/layout-template.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from './core/guard/auth-guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,9 +34,11 @@ import { LayoutTemplateComponent } from './feature/page/layout-template/layout-t
     FlexLayoutModule,
     ZXingScannerModule,
     WebcamModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

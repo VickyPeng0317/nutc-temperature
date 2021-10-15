@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './core/guard/auth-guard';
 import { DeviceInfoPageComponent } from './feature/page/device-info-page/device-info-page.component';
 import { LayoutTemplateComponent } from './feature/page/layout-template/layout-template.component';
 import { LoginPageComponent } from './feature/page/login-page/login-page.component';
@@ -11,6 +12,7 @@ const routes: Routes = [
   {
     path: 'nutc',
     component: LayoutTemplateComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'device-info',
