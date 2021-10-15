@@ -12,6 +12,8 @@ import { QrcodeResDialogComponent } from './feature/dialog/qrcode-res-dialog/qrc
 import { WebcamModule } from 'ngx-webcam';
 import { HttpClientModule } from '@angular/common/http';
 import { TemperatureScanPageComponent } from './feature/page/temperature-scan-page/temperature-scan-page.component';
+import { LoginPageComponent } from './feature/page/login-page/login-page.component';
+import { LayoutTemplateComponent } from './feature/page/layout-template/layout-template.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,9 @@ import { TemperatureScanPageComponent } from './feature/page/temperature-scan-pa
     QrCodePageComponent,
     UploadTemperaturePageComponent,
     QrcodeResDialogComponent,
-    TemperatureScanPageComponent
+    TemperatureScanPageComponent,
+    LoginPageComponent,
+    LayoutTemplateComponent
   ],
   imports: [
     BrowserModule,

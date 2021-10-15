@@ -15,6 +15,6 @@ export class DeviceInfoPageComponent implements OnInit {
   ngOnInit(): void {
   }
   toUploadPage() {
-    this.router.navigate(['upload-tprt'])
+    this.router.navigate(['/nutc/upload-tprt'])
   }
 }

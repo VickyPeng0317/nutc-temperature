@@ -51,7 +51,7 @@ export class QrCodePageComponent implements OnInit, AfterViewInit {
       return;
     }
     this.openQRCodeResDialog(true, '掃描成功!').subscribe(() => {
-      this.router.navigate(['scan']);
+      this.router.navigate(['/nutc/scan']);
     });
   }
 
