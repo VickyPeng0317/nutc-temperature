@@ -2,6 +2,7 @@ import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, O
 import { timer } from 'rxjs';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { StoreService } from 'src/app/core/services/store.service';
 @Component({
   selector: 'app-qr-code-page',
   templateUrl: './qr-code-page.component.html',
@@ -21,7 +22,8 @@ export class QrCodePageComponent implements OnInit, AfterViewInit {
     return document.getElementsByTagName('video')[0].offsetHeight
   }
   constructor(
-    private router: Router
+    private router: Router,
+    private storeService: StoreService
   ) { }
   ngAfterViewInit(): void {
     timer(2000).subscribe(() => {
@@ -40,7 +42,8 @@ export class QrCodePageComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-
+    this.storeService.removeValidTime();
+    this.storeService.removeTemperature();
   }
 
 

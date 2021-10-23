@@ -16,7 +16,7 @@ export class RecordService {
     path: '/record/create',
     mockData: { isSuccess: true }
   })
-  createRecord?: ApiAction<ICreateRecordReq, { isSuccess: boolean }>;
+  createRecord!: ApiAction<ICreateRecordReq, { isSuccess: boolean }>;
 }
 
 export interface ICreateRecordReq {
