@@ -3,7 +3,11 @@
         <div fxLayoutAlign="space-between center" fxLayoutGap="10px">
             <!-- <img src="/assets/img/logo.gif" width="35"> -->
             <span class="title-text">NUTC 體溫回報系統</span>
-            <ion-icon style="color: #ffffff;" name="qr-code-outline" (click)="toPage('/nutc/qrcode')"></ion-icon>
+            <div fxLayoutGap="15px">
+                <ion-icon style="color: #ffffff;" name="qr-code-outline" (click)="toPage('/nutc/qrcode')"></ion-icon>
+                <ion-icon style="color: #ffffff;" name="key"></ion-icon>
+                <ion-icon style="color: #ffffff;" name="arrow-undo-circle" (click)="logout()"></ion-icon>
+            </div>
         </div>
     </div>
 </div>

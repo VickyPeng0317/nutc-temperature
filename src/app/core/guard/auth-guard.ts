@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate() {
-    const canActivate = !!this.storeService.getUserAccount();
+    const canActivate = !!this.storeService.getUserInfo().userId;
     if (canActivate) {
       return true;
     }

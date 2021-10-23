@@ -38,7 +38,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: "qrcode",
+    redirectTo: "nutc",
     pathMatch: 'full'
   },
 ];

@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
+import { IUserListItem } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
-  userAccount: string = '';
   constructor() { }
 
-  getUserAccount() {
-    return this.userAccount;
+  getUserInfo() {
+    const userInfoStr = localStorage.getItem('userInfo') || '{}';
+    return JSON.parse(userInfoStr);
   }
 
-  setUserAccount(userAccount: string) {
-    this.userAccount = userAccount;
+  setUserInfo(userInfo: IUserListItem) {
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
   }
 
-  removeUserAccount() {
-    this.userAccount = '';
+  removeUserInfo() {
+    localStorage.setItem('userInfo', JSON.stringify({}));
   }
+
 }
