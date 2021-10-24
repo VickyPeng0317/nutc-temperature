@@ -31,6 +31,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   warnTemperature = 37.3;
 
   endSubject = new Subject();
+  qrCodeData = 'null';
   constructor(
     private router: Router,
     private el: ElementRef,
@@ -76,6 +77,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     this.isSuccess = true;
     this.temperature = +(this.storeService.getTemperature() || 0);
     this.timeObs = this.getTimerObs$(this.storeService.getValidTime() || '');
+    this.qrCodeData = this.getQrCodeData();
   }
 
   checkHasValidTimeAndTemperature() {
@@ -94,6 +96,14 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
       return false;
     }
     return true;
+  }
+
+  getQrCodeData() {
+    const { userId } = this.storeService.getUserInfo();
+    const { deviceId } = this.storeService.getDeviceInfo();
+    const temperature = this.storeService.getTemperature();
+    const validTime = this.storeService.getValidTime();
+    return JSON.stringify({ userId, deviceId, temperature, validTime });
   }
 
   getTimerObs$(validTimeStr: string) {
@@ -151,9 +161,10 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
         this.isSuccess = true;
         this.temperature = +temperature;
         this.endSubject.next();
-        this.openResDialog(true, `辨識成功 請按下送出`).pipe(
+        this.openResDialog(true, `辨識成功 !`).pipe(
           tap(() => {
             this.pageToBottom();
+            this.send();
           })
         ).subscribe();
       }
@@ -179,6 +190,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
       const validTimeStr = moment().add(4, 'hours').format('YYYY/MM/DD HH:mm:ss');
       this.storeService.setValidTime(validTimeStr);
       this.timeObs = this.getTimerObs$(validTimeStr);
+      this.qrCodeData = this.getQrCodeData();
     });
   }
 

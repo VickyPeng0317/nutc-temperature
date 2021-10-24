@@ -16,6 +16,8 @@ import { LoginPageComponent } from './feature/page/login-page/login-page.compone
 import { LayoutTemplateComponent } from './feature/page/layout-template/layout-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './core/guard/auth-guard';
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +39,7 @@ import { AuthGuard } from './core/guard/auth-guard';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    QRCodeModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

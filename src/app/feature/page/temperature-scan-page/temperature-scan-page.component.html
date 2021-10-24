@@ -10,74 +10,67 @@
             *請將相機水平對準設備
         </div>
     </div>
-    <div fxLayout="row" style="margin-top: 1rem;">
-        <div fxFlex="50">
-            <p class="info-title"><ion-icon name="calculator"></ion-icon>設備資訊</p>
-        </div>
-        <div fxFlex="50">
-            <p class="info-title"><ion-icon name="thermometer-outline"></ion-icon>辨識結果</p>
-        </div>
-    </div>
-    <div fxLayout="row">
-        <div fxFlex="50">
-            <ul class="list list--material info-border">
-                <li class="list-item list-item--material">
-                  <div class="list-item__center list-item--material__center">
-                    <div class="list-item__title list-item--material__title" fxLayoutAlign="start" fxLayoutGap="5px">
-                        <ion-icon name="text-outline"></ion-icon>
-                        <span>名稱</span>
-                    </div>
-                    <div class="list-item__subtitle list-item--material__subtitle">體溫設備01</div>
-                  </div>
-                </li>
-                <li class="list-item list-item--material">
-                    <div class="list-item__center list-item--material__center">
-                      <div class="list-item__title list-item--material__title" fxLayoutAlign="start" fxLayoutGap="5px">
-                          <ion-icon name="navigate-circle"></ion-icon>
-                          <span>位置</span>
-                      </div>
-                      <div class="list-item__subtitle list-item--material__subtitle">中正大樓-教務處門口</div>
-                    </div>
-                </li>
-                <li class="list-item list-item--material">
-                    <div class="list-item__center list-item--material__center">
-                      <div class="list-item__title list-item--material__title" fxLayoutAlign="start" fxLayoutGap="5px">
-                          <ion-icon name="construct"></ion-icon>
-                          <span>維護單位</span>
-                      </div>
-                      <div class="list-item__subtitle list-item--material__subtitle">資訊工程系</div>
-                    </div>
-                </li>
-              </ul>
-        </div>
-        <div fxFlex="50">
-            <div fxLayoutAlign="center center" style="height: 100%;">
-                <span *ngIf="temperature >= warnTemperature" class="temperature-danger">{{ temperature }}&deg;C</span>
-                <span *ngIf="warnTemperature > temperature &&  temperature > 0" class="temperature-success">{{ temperature }}&deg;C</span>
-                <span *ngIf="temperature === 0" class="temperature-fail">尚未辨識</span>
+    <ng-container *ngIf="(temperature !== 0)">
+        <div fxLayout="row" style="margin-top: 1rem;">
+            <div fxFlex="50">
+                <p class="info-title"><ion-icon name="calculator"></ion-icon>設備資訊</p>
+            </div>
+            <div fxFlex="50">
+                <p class="info-title"><ion-icon name="thermometer-outline"></ion-icon>辨識結果</p>
             </div>
         </div>
-    </div>
-    <div fxLayout="column" fxLayoutGap="10px" style="margin-top: 1rem;">
-        <button *ngIf="(temperature !== 0) && !isFinishUpload" class="button--large--cta" [disabled]="isUploading" style="background: #00D68F; color: #ffffff;" (click)="send()">
+        <div fxLayout="row">
+            <div fxFlex="50">
+                <ul class="list list--material info-border">
+                    <li class="list-item list-item--material">
+                      <div class="list-item__center list-item--material__center">
+                        <div class="list-item__title list-item--material__title" fxLayoutAlign="start" fxLayoutGap="5px">
+                            <ion-icon name="text-outline"></ion-icon>
+                            <span>名稱</span>
+                        </div>
+                        <div class="list-item__subtitle list-item--material__subtitle">體溫設備01</div>
+                      </div>
+                    </li>
+                    <li class="list-item list-item--material">
+                        <div class="list-item__center list-item--material__center">
+                          <div class="list-item__title list-item--material__title" fxLayoutAlign="start" fxLayoutGap="5px">
+                              <ion-icon name="navigate-circle"></ion-icon>
+                              <span>位置</span>
+                          </div>
+                          <div class="list-item__subtitle list-item--material__subtitle">中正大樓-教務處門口</div>
+                        </div>
+                    </li>
+                    <li class="list-item list-item--material">
+                        <div class="list-item__center list-item--material__center">
+                          <div class="list-item__title list-item--material__title" fxLayoutAlign="start" fxLayoutGap="5px">
+                              <ion-icon name="construct"></ion-icon>
+                              <span>維護單位</span>
+                          </div>
+                          <div class="list-item__subtitle list-item--material__subtitle">資訊工程系</div>
+                        </div>
+                    </li>
+                  </ul>
+            </div>
+            <div fxFlex="50">
+                <div fxLayoutAlign="center center" style="height: 100%;">
+                    <span *ngIf="temperature >= warnTemperature" class="temperature-danger">{{ temperature }}&deg;C</span>
+                    <span *ngIf="warnTemperature > temperature &&  temperature > 0" class="temperature-success">{{ temperature }}&deg;C</span>
+                    <span *ngIf="temperature === 0" class="temperature-fail">尚未辨識</span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!isFinishUpload" fxLayoutAlign="center" style="margin-top: 15px;">
+            <span style="font-size: 1.5rem; font-weight: bold;">上傳中...</span>
+        </div>
+        <div *ngIf="isFinishUpload" fxLayout="column" fxLayoutGap="10px" style="margin-top: 1rem;">
             <div fxLayoutAlign="center center" fxLayoutGap="5px">
-                <ion-icon name="send"></ion-icon>
-                <span>{{ isUploading ? '送出中..' : '送出結果'}}</span>
+                <ion-icon name="alarm" style="font-size: 2rem; font-weight: bold;"></ion-icon>
+                <span style="font-size: 1.5rem; font-weight: bold;">有效時間 {{ timeObs | async }}</span>
             </div>
-        </button>
-        <div *ngIf="isFinishUpload" fxLayoutAlign="center center" fxLayoutGap="5px">
-            <ion-icon name="alarm" style="font-size: 2rem; font-weight: bold;"></ion-icon>
-            <span style="font-size: 2rem; font-weight: bold;">{{ timeObs | async }}</span>
+            <div fxLayoutAlign="center center">
+                <qrcode [qrdata]="qrCodeData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+            </div>
         </div>
-        
-        <!-- <button *ngIf="temperature !== 0" class="button--large--cta" style="background: #FF3D71; color: #ffffff;" (click)="reset()">
-            <div fxLayoutAlign="center center" fxLayoutGap="5px" >
-                <ion-icon name="refresh-outline"></ion-icon>
-                <span>重新辨識</span>
-            </div>
-        </button> -->
-    </div>
-    
-    
+    </ng-container>
 </div>
 <app-qrcode-res-dialog *ngIf="dialogSetting.isShow" [title]="'辨識結果'" [isSuccess]="dialogSetting.isSuccess" [msg]="dialogSetting.msg"></app-qrcode-res-dialog>

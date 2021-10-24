@@ -26,6 +26,7 @@
     "@zxing/browser": "0.0.9",
     "@zxing/library": "^0.18.6",
     "@zxing/ngx-scanner": "^3.2.0",
+    "angularx-qrcode": "^11.0.0",
     "animate.css": "^4.1.1",
     "ionicons": "^5.5.3",
     "moment": "^2.29.1",
