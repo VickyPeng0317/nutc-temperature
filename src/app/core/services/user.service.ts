@@ -19,7 +19,7 @@ export class UserService {
   login!: ApiAction<ILoginReq, ILoginRes>;
 
   @Post({
-    path: '/user/IUpdatePasswordReq',
+    path: '/user/updatePassword',
     mockData: { isSuccess: true }
   })
   updatePassword!: ApiAction<IUpdatePasswordReq, { isSuccess: boolean }>;

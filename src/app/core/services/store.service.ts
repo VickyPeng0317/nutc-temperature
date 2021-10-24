@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IDeviceInfo } from './device.service';
 import { IUserListItem } from './user.service';
 
 @Injectable({
@@ -25,7 +26,7 @@ export class StoreService {
     return JSON.parse(userInfoStr);
   }
 
-  setDeviceInfo(deviceInfo: IUserListItem) {
+  setDeviceInfo(deviceInfo: IDeviceInfo) {
     this.setStorage('deviceInfo', JSON.stringify(deviceInfo));
   }
 

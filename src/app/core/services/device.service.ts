@@ -17,7 +17,7 @@ export class DeviceService {
     path: '/device/info',
     mockData: GetDeviceInfoMock
   })
-  getDeviceInfo?: ApiAction<{ deviceId: number }, IDeviceInfo>;
+  getDeviceInfo!: ApiAction<{ deviceId: number }, IDeviceInfo>;
 }
 
 export interface IDeviceInfo {
