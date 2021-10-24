@@ -27,8 +27,17 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   isFinishUpload = false;
   isSuccess = false;
 
-  temperature = 0;
   warnTemperature = 37.3;
+  get uploadTime() {
+    const validTimeStr = this.storeService.getValidTime();
+    return moment(validTimeStr).add(-4, 'hour').format('YYYY/MM/DD HH:mm:ss');
+  }
+  get deviceInfo() {
+    return this.storeService.getDeviceInfo();
+  }
+  get temperature() {
+    return +(this.storeService.getTemperature() || 0);
+  }
 
   endSubject = new Subject();
   qrCodeData = 'null';
@@ -75,7 +84,6 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     }
     this.isFinishUpload = true;
     this.isSuccess = true;
-    this.temperature = +(this.storeService.getTemperature() || 0);
     this.timeObs = this.getTimerObs$(this.storeService.getValidTime() || '');
     this.qrCodeData = this.getQrCodeData();
   }
@@ -91,8 +99,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     if (second < 60) {
       return false;
     }
-    const temperature = this.storeService.getTemperature();
-    if (!temperature) {
+    if (!this.temperature) {
       return false;
     }
     return true;
@@ -100,8 +107,8 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
 
   getQrCodeData() {
     const { userId } = this.storeService.getUserInfo();
-    const { deviceId } = this.storeService.getDeviceInfo();
-    const temperature = this.storeService.getTemperature();
+    const { deviceId } = this.deviceInfo.deviceId;
+    const temperature = this.temperature;
     const validTime = this.storeService.getValidTime();
     return JSON.stringify({ userId, deviceId, temperature, validTime });
   }
@@ -159,7 +166,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
       const { temperature } = res;
       if (+temperature !== 0) {
         this.isSuccess = true;
-        this.temperature = +temperature;
+        this.storeService.setTemperature(temperature)
         this.endSubject.next();
         this.openResDialog(true, `辨識成功 !`).pipe(
           tap(() => {
@@ -186,7 +193,6 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
         return;
       }
       this.isFinishUpload = true;
-      this.storeService.setTemperature(temperature);
       const validTimeStr = moment().add(4, 'hours').format('YYYY/MM/DD HH:mm:ss');
       this.storeService.setValidTime(validTimeStr);
       this.timeObs = this.getTimerObs$(validTimeStr);

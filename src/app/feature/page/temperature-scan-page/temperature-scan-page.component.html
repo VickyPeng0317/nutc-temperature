@@ -13,7 +13,7 @@
     <ng-container *ngIf="(temperature !== 0)">
         <div fxLayout="row" style="margin-top: 1rem;">
             <div fxFlex="50">
-                <p class="info-title"><ion-icon name="calculator"></ion-icon>設備資訊</p>
+                <p class="info-title"><ion-icon name="calculator"></ion-icon>上傳資訊</p>
             </div>
             <div fxFlex="50">
                 <p class="info-title"><ion-icon name="thermometer-outline"></ion-icon>辨識結果</p>
@@ -28,7 +28,7 @@
                             <ion-icon name="text-outline"></ion-icon>
                             <span>名稱</span>
                         </div>
-                        <div class="list-item__subtitle list-item--material__subtitle">體溫設備01</div>
+                        <div class="list-item__subtitle list-item--material__subtitle">{{deviceInfo.deviceName}}</div>
                       </div>
                     </li>
                     <li class="list-item list-item--material">
@@ -37,16 +37,16 @@
                               <ion-icon name="navigate-circle"></ion-icon>
                               <span>位置</span>
                           </div>
-                          <div class="list-item__subtitle list-item--material__subtitle">中正大樓-教務處門口</div>
+                          <div class="list-item__subtitle list-item--material__subtitle">{{deviceInfo.place}}</div>
                         </div>
                     </li>
                     <li class="list-item list-item--material">
                         <div class="list-item__center list-item--material__center">
                           <div class="list-item__title list-item--material__title" fxLayoutAlign="start" fxLayoutGap="5px">
-                              <ion-icon name="construct"></ion-icon>
-                              <span>維護單位</span>
+                              <ion-icon name="time-outline"></ion-icon>
+                              <span>建立時間</span>
                           </div>
-                          <div class="list-item__subtitle list-item--material__subtitle">資訊工程系</div>
+                          <div class="list-item__subtitle list-item--material__subtitle">{{ uploadTime }}</div>
                         </div>
                     </li>
                   </ul>
