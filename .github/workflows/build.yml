@@ -13,6 +13,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.18.1'
+      - run: npm cache verify
       - run: npm install -f
       - name: Build dev
         run: npm run build
