@@ -7,13 +7,13 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
+      - run: npm cache verify
       - name: Get latest code
         uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '14.18.1'
-      - run: npm cache verify
       - run: npm install -f
       - name: Build dev
         run: npm run build
