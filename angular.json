@@ -39,7 +39,7 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "qrcode"
-           ]
+            ]
           },
           "configurations": {
             "production": {
@@ -135,6 +135,9 @@
   },
   "defaultProject": "nutc-temperature",
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "warnings": {
+      "versionMismatch": false
+    }
   }
 }
