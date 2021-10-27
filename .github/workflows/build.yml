@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12'
-      - run: npm cache clean
+      - run: npm cache clean --force
       - run: rm package-lock.json
       - run: npm install
       - name: Build dev
