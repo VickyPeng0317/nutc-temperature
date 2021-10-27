@@ -17,6 +17,7 @@ jobs:
       - run: npm -v
       - run: rm package-lock.json
       - run: npm install --loglevel=error
+      - run: ng config -g cli.warnings.versionMismatch false
       # - run: npm install --save-dev @angular/cli@latest --loglevel=error
       - run: npm cache verify --loglevel=error
       - name: Build dev
