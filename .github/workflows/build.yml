@@ -16,7 +16,7 @@ jobs:
       - run: rm package-lock.json
       - run: npm install --loglevel=error
       - name: Build dev
-        run: npm run build
+        run: ng build
       - name: Deploy dev    
         run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-dev -Recurse -Force
       - name: Build prod
