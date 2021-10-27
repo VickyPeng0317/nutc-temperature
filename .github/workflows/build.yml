@@ -13,15 +13,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12'
-      - run: node -v
-      - run: npm -v
-      - run: get-ExecutionPolicy
       - run: rm package-lock.json
       - run: npm install --loglevel=error
-      - run: ng config cli.warnings.versionMismatch false
       - run: npm cache verify --loglevel=error
-      - name: Build dev
-        run: ng build --progress false --aot
+      - run: ng build --progress false
       # - name: Deploy dev    
       #   run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-dev -Recurse -Force
       # - name: Build prod
