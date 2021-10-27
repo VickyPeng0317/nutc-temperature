@@ -15,6 +15,7 @@ jobs:
           node-version: '12'
       - run: node -v
       - run: npm -v
+      - run: get-ExecutionPolicy
       - run: rm package-lock.json
       - run: npm install --loglevel=error
       - run: ng config cli.warnings.versionMismatch false
