@@ -17,8 +17,8 @@ jobs:
       - run: npm -v
       - run: rm package-lock.json
       - run: npm install --loglevel=error
-      - run: npm install --save-dev @angular/cli@latest --loglevel=error
-      - run: npm cache clean
+      # - run: npm install --save-dev @angular/cli@latest --loglevel=error
+      - run: npm cache verify --loglevel=error
       - name: Build dev
         run: ng build --progress false
       - name: Deploy dev    
