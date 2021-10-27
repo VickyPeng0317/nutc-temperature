@@ -21,7 +21,7 @@ jobs:
       - run: ng config cli.warnings.versionMismatch false
       - run: npm cache verify --loglevel=error
       - name: Build dev
-        run: ng build --progress false
+        run: npm run build-prod
       # - name: Deploy dev    
       #   run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-dev -Recurse -Force
       # - name: Build prod

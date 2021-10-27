@@ -8,6 +8,7 @@
     "start:ssl": "ng serve --ssl true --ssl-key ./node_modules/browser-sync/certs/server.key --ssl-cert ./node_modules/browser-sync/certs/server.crt --host 10.25.1.116",
     "build": "ng build",
     "build:prod": "ng build --prod",
+    "build-prod": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
