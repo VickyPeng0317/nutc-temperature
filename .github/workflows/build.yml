@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: tz-hosted
     steps:
       - name: Get latest code
         uses: actions/checkout@v2
@@ -17,14 +17,13 @@ jobs:
       - run: npm -v
       - run: rm package-lock.json
       - run: npm install --loglevel=error
-      - run: ng config -g cli.warnings.versionMismatch false
-      # - run: npm install --save-dev @angular/cli@latest --loglevel=error
+      - run: npm install --save-dev @angular/cli@12.2.11 --loglevel=error
       - run: npm cache verify --loglevel=error
       - name: Build dev
         run: ng build --progress false
-      - name: Deploy dev    
-        run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-dev -Recurse -Force
-      - name: Build prod
-        run: ng build --configuration production
-      - name: Deploy prod    
-        run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-prod -Recurse -Force
+      # - name: Deploy dev    
+      #   run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-dev -Recurse -Force
+      # - name: Build prod
+      #   run: ng build --configuration production
+      # - name: Deploy prod    
+      #   run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-prod -Recurse -Force
