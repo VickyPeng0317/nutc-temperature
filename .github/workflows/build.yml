@@ -15,7 +15,7 @@ jobs:
           node-version: '12'
       - run: rm package-lock.json
       - run: npm install --loglevel=error
-      - run: npm install --save-dev @angular/cli@latest
+      - run: npm install --save-dev @angular/cli@latest --loglevel=error
       - name: Build dev
         run: ng build
       - name: Deploy dev    
