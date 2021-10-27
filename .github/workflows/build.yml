@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: tz-runner-2
     steps:
       - name: Get latest code
         uses: actions/checkout@v2
