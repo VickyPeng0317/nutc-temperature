@@ -17,6 +17,7 @@ import { LayoutTemplateComponent } from './feature/page/layout-template/layout-t
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './core/guard/auth-guard';
 import { QRCodeModule } from 'angularx-qrcode';
+import { UpdatePasswordPageComponent } from './feature/page/update-password-page/update-password-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     QrcodeResDialogComponent,
     TemperatureScanPageComponent,
     LoginPageComponent,
-    LayoutTemplateComponent
+    LayoutTemplateComponent,
+    UpdatePasswordPageComponent
   ],
   imports: [
     BrowserModule,

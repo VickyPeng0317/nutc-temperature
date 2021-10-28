@@ -6,6 +6,7 @@ import { LayoutTemplateComponent } from './feature/page/layout-template/layout-t
 import { LoginPageComponent } from './feature/page/login-page/login-page.component';
 import { QrCodePageComponent } from './feature/page/qr-code-page/qr-code-page.component';
 import { TemperatureScanPageComponent } from './feature/page/temperature-scan-page/temperature-scan-page.component';
+import { UpdatePasswordPageComponent } from './feature/page/update-password-page/update-password-page.component';
 import { UploadTemperaturePageComponent } from './feature/page/upload-temperature-page/upload-temperature-page.component';
 
 const routes: Routes = [
@@ -30,6 +31,15 @@ const routes: Routes = [
         path: 'scan',
         component: TemperatureScanPageComponent
       },
+      {
+        path: 'password',
+        component: UpdatePasswordPageComponent
+      },
+      {
+        path: '',
+        redirectTo: "qrcode",
+        pathMatch: 'full'
+      },
     ]
   },
   {
@@ -38,7 +48,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: "nutc",
+    redirectTo: "login",
     pathMatch: 'full'
   },
 ];
