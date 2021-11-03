@@ -27,7 +27,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   isFinishUpload = false;
   isSuccess = false;
 
-  warnTemperature = 37.3;
+  warnTemperature = environment.HOT;
   get uploadTime() {
     const validTimeStr = this.storeService.getValidTime();
     return moment(validTimeStr).add(-4, 'hour').format('YYYY/MM/DD HH:mm:ss');
