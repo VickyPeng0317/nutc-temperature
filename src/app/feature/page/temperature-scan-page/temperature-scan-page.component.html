@@ -11,6 +11,9 @@
         </div>
     </div>
     <ng-container *ngIf="(temperature !== 0)">
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <img src="/assets/img/logo.gif" style="height: 15vh;">
+        </div>
         <div fxLayout="row" style="margin-top: 1rem;">
             <div fxFlex="50">
                 <p class="info-title"><ion-icon name="calculator"></ion-icon>上傳資訊</p>
@@ -63,9 +66,12 @@
             <span style="font-size: 1.5rem; font-weight: bold;">上傳中...</span>
         </div>
         <div *ngIf="isFinishUpload" fxLayout="column" fxLayoutGap="10px" style="margin-top: 1rem;">
-            <div fxLayoutAlign="center center" fxLayoutGap="5px">
-                <ion-icon name="alarm" style="font-size: 2rem; font-weight: bold;"></ion-icon>
-                <span style="font-size: 1.5rem; font-weight: bold;">有效時間 {{ (timeObs | async)?.value }}</span>
+            <div fxLayout="column"  fxLayoutAlign="center center" fxLayoutGap="5px">
+                <div fxLayoutAlign="center center">
+                    <ion-icon name="alarm" style="font-size:1.5rem; font-weight: bold;"></ion-icon>
+                    <span style="font-size: 1.5rem; font-weight: bold; display: block;">有效時間</span>
+                </div>
+                <span style="font-size: 4rem; font-weight: bold;">{{ (timeObs | async)?.value }}</span>
             </div>
             <div fxLayoutAlign="center center">
                 <qrcode [qrdata]="qrCodeData" [width]="256" [errorCorrectionLevel]="'M'" ></qrcode>

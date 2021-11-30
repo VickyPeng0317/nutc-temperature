@@ -56,8 +56,8 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   drawMask() {
     const canvas = <HTMLCanvasElement> document.getElementById('stage');
     const ctx = <CanvasRenderingContext2D> canvas?.getContext('2d');
-    const recWidth = canvas?.width;
-    const recHeight = 150;
+    const recWidth = canvas?.width*0.97;
+    const recHeight = canvas?.height*0.45;
     const xPos = canvas?.width/2 - (recWidth/2);
     const yPos = canvas?.height/2 - (recHeight/2);
     ctx.globalAlpha= 0.6;
@@ -79,7 +79,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const hasValid = this.checkHasValidTimeAndTemperature();
     if (!hasValid) {
-      timer(5000).subscribe(() => this.startScan());
+      timer(800).subscribe(() => this.startScan());
       return;
     }
     this.isFinishUpload = true;
