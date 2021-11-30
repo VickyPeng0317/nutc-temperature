@@ -39,6 +39,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     return +(this.storeService.getTemperature() || 0);
   }
 
+
   endSubject = new Subject();
   qrCodeData = 'null';
   constructor(
@@ -136,7 +137,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
           }
         ];
         const theme = themeLogic.find(x => x.logic)?.theme;
-        // const theme = 'warn-theme';
+        //const theme = 'danger-theme';
         const value = moment.utc(s*1000).format('HH:mm:ss');
         return { theme, value };
       }), 
@@ -243,6 +244,14 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
         this.dialogSetting.isShow = false;
       })
     );
+  }
+
+  showObsTime(data: any) {
+    return (data || {}).value;
+  }
+
+  showObsTheme(data: any) {
+    return (data || {}).theme;
   }
 
   // reset() {

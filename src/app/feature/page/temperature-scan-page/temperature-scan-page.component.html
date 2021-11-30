@@ -1,4 +1,4 @@
-<div #pageRef [class]="(timeObs | async)?.theme" style="overflow: auto; height: 100%;">
+<div #pageRef [class]="showObsTheme(timeObs | async)" style="overflow: auto; height: 100%;">
     <div [hidden]="temperature !== 0" fxLayoutAlign="center" style="position: relative;" >
         <webcam [width]="canvasWidth" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" ></webcam>
         <div class="canvas" style="width: 90vw">
@@ -71,7 +71,7 @@
                     <ion-icon name="alarm" style="font-size:1.5rem; font-weight: bold;"></ion-icon>
                     <span style="font-size: 1.5rem; font-weight: bold; display: block;">有效時間</span>
                 </div>
-                <span style="font-size: 4rem; font-weight: bold;">{{ (timeObs | async)?.value }}</span>
+                <span style="font-size: 4rem; font-weight: bold;">{{ showObsTime(timeObs | async) }}</span>
             </div>
             <div fxLayoutAlign="center center">
                 <qrcode [qrdata]="qrCodeData" [width]="256" [errorCorrectionLevel]="'M'" ></qrcode>
