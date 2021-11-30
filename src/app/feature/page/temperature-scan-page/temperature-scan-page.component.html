@@ -55,7 +55,7 @@
                 <div fxLayoutAlign="center center" style="height: 100%;">
                     <span *ngIf="temperature >= warnTemperature" class="temperature-danger">{{ temperature }}&deg;C</span>
                     <span *ngIf="warnTemperature > temperature &&  temperature > 0" class="temperature-success">{{ temperature }}&deg;C</span>
-                    <span *ngIf="temperature === 0" class="temperature-fail">尚未辨識</span>
+                    <span *ngIf="temperature === 0" class="temperature-fail ">尚未辨識</span>
                 </div>
             </div>
         </div>
@@ -65,10 +65,10 @@
         <div *ngIf="isFinishUpload" fxLayout="column" fxLayoutGap="10px" style="margin-top: 1rem;">
             <div fxLayoutAlign="center center" fxLayoutGap="5px">
                 <ion-icon name="alarm" style="font-size: 2rem; font-weight: bold;"></ion-icon>
-                <span style="font-size: 1.5rem; font-weight: bold;">有效時間 {{ timeObs | async }}</span>
+                <span style="font-size: 1.5rem; font-weight: bold;">有效時間 {{ (timeObs | async)?.value }}</span>
             </div>
             <div fxLayoutAlign="center center">
-                <qrcode [qrdata]="qrCodeData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+                <qrcode [qrdata]="qrCodeData" [width]="256" [errorCorrectionLevel]="'M'" ></qrcode>
             </div>
         </div>
     </ng-container>

@@ -119,9 +119,28 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     const second = +validTime.diff(nowTime, 'second');
     return interval(1000).pipe(
       take(second * 1000),
-      map(x => moment.utc((second - x)*1000).format('HH:mm:ss')),
+      map(x => {
+        const s = (second - x);
+        const statusLogic = [
+          {
+            logic: s < 1 * 60 * 60,
+            status: 'danger-theme'
+          },
+          {
+            logic: s < 2 * 60 * 60,
+            status: 'warn-theme'
+          },
+          {
+            logic: true,
+            status: 'success-theme'
+          }
+        ];
+        const status = statusLogic.find(x => x.logic)?.status;
+        const value = moment.utc(s*1000).format('HH:mm:ss');
+        return { status, value };
+      }), 
       tap(x => {
-        if (x === '00:00:30') {
+        if (x.value === '00:00:30') {
           alert('請重新掃描設備');
           this.router.navigate(['/nutc/qrcode']);
         }
@@ -177,7 +196,7 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  timeObs: any;
+  timeObs: any = of({});
   send() {
     this.isUploading = true;
     const { userId } = this.storeService.getUserInfo();
