@@ -1,4 +1,4 @@
-<div #pageRef style="overflow: auto; height: 100%;">
+<div #pageRef [class]="(timeObs | async)?.theme" style="overflow: auto; height: 100%;">
     <div [hidden]="temperature !== 0" fxLayoutAlign="center" style="position: relative;" >
         <webcam [width]="canvasWidth" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" ></webcam>
         <div class="canvas" style="width: 90vw">

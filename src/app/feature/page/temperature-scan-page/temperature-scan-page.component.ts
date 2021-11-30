@@ -121,23 +121,24 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
       take(second * 1000),
       map(x => {
         const s = (second - x);
-        const statusLogic = [
+        const themeLogic = [
           {
             logic: s < 1 * 60 * 60,
-            status: 'danger-theme'
+            theme: 'danger-theme'
           },
           {
             logic: s < 2 * 60 * 60,
-            status: 'warn-theme'
+            theme: 'warn-theme'
           },
           {
             logic: true,
-            status: 'success-theme'
+            theme: 'success-theme'
           }
         ];
-        const status = statusLogic.find(x => x.logic)?.status;
+        const theme = themeLogic.find(x => x.logic)?.theme;
+        // const theme = 'warn-theme';
         const value = moment.utc(s*1000).format('HH:mm:ss');
-        return { status, value };
+        return { theme, value };
       }), 
       tap(x => {
         if (x.value === '00:00:30') {

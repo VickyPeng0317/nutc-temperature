@@ -45,38 +45,22 @@
 
 ::ng-deep {
     .success-theme {
-        $backgroundColor:  #00D68F;
-        $fontColor:  #FF0000;
-        background-color: $backgroundColor;
-        // color: $fontColor;
-        .list-item--material {
-            background-color: $backgroundColor;
+        background-size:100% 100%;
+        background-image:url(/assets/img/bk.jpg);
+        .list--material {
+            background-color: inherit;
             // color: $fontColor;
         }
     }
     .danger-theme {
-        $backgroundColor:  #FF0000;
-        $fontColor:  #00D68F;
-        background-color: $backgroundColor;
-
-        .list-item--material {
-            background-color: $backgroundColor;
-
-        }
-    }
-    .warn-theme {
-        $backgroundColor:  #FFFF00;
-        $fontColor:  #330066;
-        background-color: $backgroundColor;
-        // color: $fontColor;
-        .list-item--material {
-            background-color: $backgroundColor;
+        background: linear-gradient(#e71a1a,#f5346e);
+        .list--material {
+            background-color: inherit;
             // color: $fontColor;
         }
     }
-    .bg {
-        background-size:100% 100%;
-        background-image:url(/assets/img/bk.jpg);
+    .warn-theme {
+        background: linear-gradient(#f1be16,#ece17a);
         .list--material {
             background-color: inherit;
             // color: $fontColor;
