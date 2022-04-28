@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuard } from './core/guard/auth-guard';
 import { QRCodeModule } from 'angularx-qrcode';
 import { UpdatePasswordPageComponent } from './feature/page/update-password-page/update-password-page.component';
+import { ViewCoralCameraComponent } from './feature/page/view-coral-camera/view-coral-camera.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { UpdatePasswordPageComponent } from './feature/page/update-password-page
     TemperatureScanPageComponent,
     LoginPageComponent,
     LayoutTemplateComponent,
-    UpdatePasswordPageComponent
+    UpdatePasswordPageComponent,
+    ViewCoralCameraComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { QrCodePageComponent } from './feature/page/qr-code-page/qr-code-page.co
 import { TemperatureScanPageComponent } from './feature/page/temperature-scan-page/temperature-scan-page.component';
 import { UpdatePasswordPageComponent } from './feature/page/update-password-page/update-password-page.component';
 import { UploadTemperaturePageComponent } from './feature/page/upload-temperature-page/upload-temperature-page.component';
+import { ViewCoralCameraComponent } from './feature/page/view-coral-camera/view-coral-camera.component';
 
 const routes: Routes = [
   {
@@ -36,8 +37,12 @@ const routes: Routes = [
         component: UpdatePasswordPageComponent
       },
       {
+        path: 'view-coral',
+        component: ViewCoralCameraComponent
+      },
+      {
         path: '',
-        redirectTo: "qrcode",
+        redirectTo: 'qrcode',
         pathMatch: 'full'
       },
     ]
@@ -48,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: "login",
+    redirectTo: 'login',
     pathMatch: 'full'
   },
 ];
