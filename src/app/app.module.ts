@@ -12,6 +12,13 @@ import { QrcodeResDialogComponent } from './feature/dialog/qrcode-res-dialog/qrc
 import { WebcamModule } from 'ngx-webcam';
 import { HttpClientModule } from '@angular/common/http';
 import { TemperatureScanPageComponent } from './feature/page/temperature-scan-page/temperature-scan-page.component';
+import { LoginPageComponent } from './feature/page/login-page/login-page.component';
+import { LayoutTemplateComponent } from './feature/page/layout-template/layout-template.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from './core/guard/auth-guard';
+import { QRCodeModule } from 'angularx-qrcode';
+import { UpdatePasswordPageComponent } from './feature/page/update-password-page/update-password-page.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +26,10 @@ import { TemperatureScanPageComponent } from './feature/page/temperature-scan-pa
     QrCodePageComponent,
     UploadTemperaturePageComponent,
     QrcodeResDialogComponent,
-    TemperatureScanPageComponent
+    TemperatureScanPageComponent,
+    LoginPageComponent,
+    LayoutTemplateComponent,
+    UpdatePasswordPageComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +38,12 @@ import { TemperatureScanPageComponent } from './feature/page/temperature-scan-pa
     FlexLayoutModule,
     ZXingScannerModule,
     WebcamModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    QRCodeModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

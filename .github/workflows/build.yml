@@ -1,0 +1,25 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - run: rm package-lock.json
+      - run: npm install --loglevel=error
+      - run: npm cache verify --loglevel=error
+      - run: ng build --progress false
+      # - name: Deploy dev    
+      #   run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-dev -Recurse -Force
+      # - name: Build prod
+      #   run: ng build --configuration production
+      # - name: Deploy prod    
+      #   run: Copy-Item ./dist C:\Users\Administrator\Documents\Project\中科大體溫機\AngularDeploy\build-project\app-prod -Recurse -Force

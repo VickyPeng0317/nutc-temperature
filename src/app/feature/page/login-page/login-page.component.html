@@ -1,0 +1,22 @@
+<div class="login-bg" fxLayoutAlign="center center" style="height: 100vh; margin: 0;">
+    <div class="card card--material" style="width: 90vw; margin-top: -20vh;">
+        <div class="card__content card--material__content">
+            <div class="login-header" fxLayoutAlign="center">
+                <h3 style="font-weight: bold;">NUTC 體溫感測系統</h3>
+            </div>
+            <div [formGroup]="form" class="login-form" fxLayoutAlign="center" style="margin-top: 1rem;">
+                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="25px" style="width: 90%;">
+                    <div class="form-control">
+                        <label><ion-icon name="person"></ion-icon></label>
+                        <input class="text-input text-input--material" formControlName="userAccount" placeholder="請輸入帳號" type="text" required>
+                    </div>
+                    <div class="form-control">
+                        <label><ion-icon name="lock-closed"></ion-icon></label>
+                        <input class="text-input text-input--material" formControlName="password" placeholder="請輸入密碼" type="password" required>
+                    </div>
+                    <button class="button--large--cta" style="width: 100%; padding: 0; background-color: #5DA1DD;" [disabled]="form.invalid" (click)="login()">登入</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,8 @@ import { AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, O
 import { timer } from 'rxjs';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { StoreService } from 'src/app/core/services/store.service';
+import { DeviceService, IDeviceInfo } from 'src/app/core/services/device.service';
 @Component({
   selector: 'app-qr-code-page',
   templateUrl: './qr-code-page.component.html',
@@ -21,7 +23,9 @@ export class QrCodePageComponent implements OnInit, AfterViewInit {
     return document.getElementsByTagName('video')[0].offsetHeight
   }
   constructor(
-    private router: Router
+    private router: Router,
+    private storeService: StoreService,
+    private deviceService: DeviceService
   ) { }
   ngAfterViewInit(): void {
     timer(2000).subscribe(() => {
@@ -40,19 +44,36 @@ export class QrCodePageComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-
+    this.storeService.removeValidTime();
+    this.storeService.removeTemperature();
   }
 
 
   onCodeResult(resultString: string) {
-    const isDevice = resultString.includes('設備01');
-    if (!isDevice) {
+    try {
+      const deviceInfo = JSON.parse(resultString) as IDeviceInfo;
+      const { deviceId } = deviceInfo;
+      // QRCode 沒 device id 離開
+      if (!deviceId) {
+        this.openQRCodeResDialog(false, '非設備 QRCode').subscribe();
+        return;
+      }
+      // 依 ID 取詳細
+      this.deviceService.getDeviceInfo({ deviceId }).subscribe(res => {
+        // 找不到就離開
+        if (!res.deviceId) {
+          this.openQRCodeResDialog(false, '非設備 QRCode').subscribe();
+          return;
+        }
+        // 儲存裝置資訊並跳頁
+        this.storeService.setDeviceInfo(res);
+        this.openQRCodeResDialog(true, '掃描成功!').subscribe(() => {
+          this.router.navigate(['/nutc/scan']);
+        });
+      });
+    } catch(e) {
       this.openQRCodeResDialog(false, '非設備 QRCode').subscribe();
-      return;
     }
-    this.openQRCodeResDialog(true, '掃描成功!').subscribe(() => {
-      this.router.navigate(['scan']);
-    });
   }
 
   openQRCodeResDialog(isSuccess: boolean, msg: string) {

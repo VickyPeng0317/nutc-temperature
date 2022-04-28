@@ -1,11 +1,15 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject, Observable, timer, interval, of } from 'rxjs';
 import { WebcamImage } from 'ngx-webcam';
-import { tap, map, takeUntil, finalize } from 'rxjs/operators';
+import { tap, map, takeUntil, finalize, take } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { ScanService } from 'src/app/core/services/scan.service';
+import { StoreService } from 'src/app/core/services/store.service';
+import { RecordService } from 'src/app/core/services/record.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-temperature-scan-page',
   templateUrl: './temperature-scan-page.component.html',
@@ -18,22 +22,32 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     isSuccess: true,
     msg: '成功'
   };
-  webcamImage?: WebcamImage;
   trigger: Subject<void> = new Subject<void>();
   isUploading = false;
-  testFlag = true;
-  deviceorientationObs$ = new Observable();
-  buffer: any[] = [];
-  endSubject = new Subject();
+  isFinishUpload = false;
   isSuccess = false;
-  isShowRefreshBtn = false;
-  isScanning = false;
-  temperature = 0;
-  warnTemperature = 37;
+
+  warnTemperature = environment.HOT;
+  get uploadTime() {
+    const validTimeStr = this.storeService.getValidTime();
+    return moment(validTimeStr).add(-4, 'hour').format('YYYY/MM/DD HH:mm:ss');
+  }
+  get deviceInfo() {
+    return this.storeService.getDeviceInfo();
+  }
+  get temperature() {
+    return +(this.storeService.getTemperature() || 0);
+  }
+
+
+  endSubject = new Subject();
+  qrCodeData = 'null';
   constructor(
-    private http: HttpClient,
     private router: Router,
-    private el: ElementRef
+    private el: ElementRef,
+    private scanService: ScanService,
+    private storeService: StoreService,
+    private recordService: RecordService
   ) { }
   ngAfterViewInit(): void {
     timer(2000).subscribe(() => {
@@ -43,8 +57,13 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   drawMask() {
     const canvas = <HTMLCanvasElement> document.getElementById('stage');
     const ctx = <CanvasRenderingContext2D> canvas?.getContext('2d');
+<<<<<<< HEAD
     const recWidth = 300;
     const recHeight = 200;
+=======
+    const recWidth = canvas?.width*0.97;
+    const recHeight = canvas?.height*0.45;
+>>>>>>> 07604bc98345ae209019dae3836217d7416860da
     const xPos = canvas?.width/2 - (recWidth/2);
     const yPos = canvas?.height/2 - (recHeight/2);
     ctx.globalAlpha= 0.6;
@@ -58,20 +77,90 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   get canvasHeidht() {
     return (document.getElementsByClassName('canvas')[0] as any).offsetHeight
   }
+
   ngOnDestroy(): void {
     this.endSubject.next();
   }
+
   ngOnInit(): void {
-    timer(5000).subscribe(() => this.startScan());
+    const hasValid = this.checkHasValidTimeAndTemperature();
+    if (!hasValid) {
+      timer(800).subscribe(() => this.startScan());
+      return;
+    }
+    this.isFinishUpload = true;
+    this.isSuccess = true;
+    this.timeObs = this.getTimerObs$(this.storeService.getValidTime() || '');
+    this.qrCodeData = this.getQrCodeData();
+  }
+
+  checkHasValidTimeAndTemperature() {
+    const validTimeStr = this.storeService.getValidTime();
+    if (!validTimeStr) {
+      return false;
+    }
+    const validTime = moment(validTimeStr);
+    const nowTime = moment();
+    const second = +validTime.diff(nowTime, 'second');
+    if (second < 60) {
+      return false;
+    }
+    if (!this.temperature) {
+      return false;
+    }
+    return true;
+  }
+
+  getQrCodeData() {
+    const { userId } = this.storeService.getUserInfo();
+    const { deviceId } = this.deviceInfo.deviceId;
+    const temperature = this.temperature;
+    const validTime = this.storeService.getValidTime();
+    return JSON.stringify({ userId, deviceId, temperature, validTime });
+  }
+
+  getTimerObs$(validTimeStr: string) {
+    const validTime = moment(validTimeStr);
+    const nowTime = moment();
+    const second = +validTime.diff(nowTime, 'second');
+    return interval(1000).pipe(
+      take(second * 1000),
+      map(x => {
+        const s = (second - x);
+        const themeLogic = [
+          {
+            logic: s < 1 * 60 * 60,
+            theme: 'danger-theme'
+          },
+          {
+            logic: s < 2 * 60 * 60,
+            theme: 'warn-theme'
+          },
+          {
+            logic: true,
+            theme: 'success-theme'
+          }
+        ];
+        const theme = themeLogic.find(x => x.logic)?.theme;
+        //const theme = 'danger-theme';
+        const value = moment.utc(s*1000).format('HH:mm:ss');
+        return { theme, value };
+      }), 
+      tap(x => {
+        if (x.value === '00:00:30') {
+          alert('請重新掃描設備');
+          this.router.navigate(['/nutc/qrcode']);
+        }
+      }),
+      takeUntil(this.endSubject)
+    );
   }
 
   startScan() {
     const time = 10000;
     const delay = 500;
-    this.isScanning = true;
     interval(delay).pipe(
       finalize(() => {
-        this.isScanning = false;
         if (this.isSuccess) {
           return;
         }
@@ -91,15 +180,10 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
   }
 
   handleImage(webcamImage: WebcamImage): void {
-    this.webcamImage = webcamImage;
-    this.buffer.push(webcamImage.imageAsBase64);
     const params = {
       username: webcamImage.imageAsBase64
     };
-    // of({ temperature: 35.6 }).pipe(
-    //   takeUntil(this.endSubject)
-    // ).subscribe((res: any) => {
-    this.http.post(environment.scanApiPath, params).pipe(
+    this.scanService.uploadTemperature(params).pipe(
       takeUntil(this.endSubject)
     ).subscribe((res: any) => {
       if (res === '0') {
@@ -108,14 +192,37 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
       const { temperature } = res;
       if (+temperature !== 0) {
         this.isSuccess = true;
-        this.temperature = +temperature;
+        this.storeService.setTemperature(temperature)
         this.endSubject.next();
-        this.openResDialog(true, `辨識成功 請按下送出`).pipe(
+        this.openResDialog(true, `辨識成功 !`).pipe(
           tap(() => {
             this.pageToBottom();
+            this.send();
           })
         ).subscribe();
       }
+    });
+  }
+  timeObs: any = of({});
+  send() {
+    this.isUploading = true;
+    const { userId } = this.storeService.getUserInfo();
+    const { deviceId } = this.storeService.getDeviceInfo();
+    const temperature = this.temperature.toString();
+    const createdTime = moment().format('YYYY/MM/DD HH:mm:ss');
+    const params = { userId, deviceId, temperature, createdTime };
+    this.recordService.createRecord(params).subscribe(res => {
+      this.isUploading = false;
+      const { isSuccess } = res;
+      if (!isSuccess) {
+        alert('上傳失敗');
+        return;
+      }
+      this.isFinishUpload = true;
+      const validTimeStr = moment().add(4, 'hours').format('YYYY/MM/DD HH:mm:ss');
+      this.storeService.setValidTime(validTimeStr);
+      this.timeObs = this.getTimerObs$(validTimeStr);
+      this.qrCodeData = this.getQrCodeData();
     });
   }
 
@@ -144,13 +251,21 @@ export class TemperatureScanPageComponent implements OnInit, AfterViewInit {
     );
   }
 
-  reset() {
-    this.isSuccess = false;
-    this.temperature = 0;
-    timer(100).subscribe(() => {
-      this.pageToTop();
-      this.drawMask();
-      timer(2000).subscribe(() => this.startScan());
-    });
+  showObsTime(data: any) {
+    return (data || {}).value;
   }
+
+  showObsTheme(data: any) {
+    return (data || {}).theme;
+  }
+
+  // reset() {
+  //   this.isSuccess = false;
+  //   this.temperature = 0;
+  //   timer(100).subscribe(() => {
+  //     this.pageToTop();
+  //     this.drawMask();
+  //     timer(2000).subscribe(() => this.startScan());
+  //   });
+  // }
 }

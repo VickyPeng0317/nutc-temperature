@@ -91,7 +91,7 @@ export class UploadTemperaturePageComponent implements OnInit, OnDestroy {
         this.openResDialog(true, `體溫 ${temperature}`).pipe(
           tap(() => {
             this.endSubject.next();
-            this.router.navigate(['device-info']);
+            this.router.navigate(['/nutc/device-info']);
           })
         ).subscribe();
       }
